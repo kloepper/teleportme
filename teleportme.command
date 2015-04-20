@@ -81,7 +81,7 @@ make_facetime_call() {
     open facetime://${1}
 
     # Click the "Call" button to begin call.
-    osascript << 'EOF'
+    osascript - << 'EOF'
     tell application "System Events" to tell process "FaceTime"
         -- Wait for FaceTime to prompt user to accept or cancel the call.
         repeat until button "Call" of window "FaceTime" exists
@@ -90,6 +90,7 @@ make_facetime_call() {
         -- Click the "Call" button to start the call.
         click button "Call" of window "FaceTime"
     end tell
+    return
 EOF
 }
 
