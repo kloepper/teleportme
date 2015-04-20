@@ -77,16 +77,20 @@ is_portal_opening_hours() {
 
 
 make_facetime_call() {
+    # Initiate call
     open facetime://${1}
-    for i in 1 2; do
-        sleep 3
-        osascript - << 'EOF'
-            tell application "FaceTime" to activate
-            tell application "System Events"
-                keystroke return
-            end tell
+
+    # Click the "Call" button to begin call.
+    osascript << 'EOF'
+    tell application "System Events" to tell process "FaceTime"
+        -- Wait for FaceTime to prompt user to accept or cancel the call.
+        repeat until button "Call" of window "FaceTime" exists
+        end repeat
+
+        -- Click the "Call" button to start the call.
+        click button "Call" of window "FaceTime"
+    end tell
 EOF
-    done
 }
 
 
