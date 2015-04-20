@@ -77,8 +77,9 @@ is_portal_opening_hours() {
 
 
 make_facetime_call() {
-    # Initiate call
-    open facetime://${1}
+    # Open FaceTime with a link to call specified user
+    local facetime_user=$1
+    open facetime://$facetime_user
 
     # Click the "Call" button to begin call.
     osascript - << 'EOF'
